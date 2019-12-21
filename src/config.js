@@ -1,6 +1,7 @@
 //initialize firebase
+import * as firebase from 'firebase';
 
-export const firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyAb2Jf5qmAVRa2p1WqUDEuQ3cSMGZqAq34",
   authDomain: "tfhs-library-system.firebaseapp.com",
   databaseURL: "https://tfhs-library-system.firebaseio.com",
@@ -10,3 +11,7 @@ export const firebaseConfig = {
   appId: "1:1039003252199:web:1f03898f29b13521e67942",
   measurementId: "G-708CP9K90Z"
 };
+
+const Firebase = firebase.initializeApp(firebaseConfig);
+
+export default Firebase;
