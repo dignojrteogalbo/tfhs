@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import './App.css';
 
 import Firebase from './config';
@@ -54,10 +55,17 @@ class Admin extends Component {
   }
 
   render () {
+    if (localStorage.getItem('user') !== '42Xc00ANQzXYOK99xMvI5Zjfr8L2') {
+      return (
+        <Redirect to='/login'/>
+      );
+    }
+
     if (this.state.success === false) {
       return (
         <div className='Form'>
           <h1>Admin Page</h1>
+          <h1>Logged in as {localStorage.getItem('user')}</h1>
           <form onSubmit={this.handleOnSubmit}>
             <p>Student Name</p>
             <input type='text' id='name'/>
@@ -74,6 +82,7 @@ class Admin extends Component {
       return (
         <div className='Form'>
           <h1>Admin Page</h1>
+          <h1>Logged in as {localStorage.getItem('user')}</h1>
           <form onSubmit={this.handleOnSubmit}>
             <p>Student Name</p>
             <input type='text' id='name'/>
@@ -90,6 +99,7 @@ class Admin extends Component {
       return (
         <div className='Form'>
           <h1>Admin Page</h1>
+          <h1>Logged in as {localStorage.getItem('user')}</h1>
           <form onSubmit={this.handleOnSubmit}>
             <p>Student Name</p>
             <input type='text' id='name'/>
@@ -107,6 +117,7 @@ class Admin extends Component {
     return (
       <div className='Form'>
         <h1>Admin Page</h1>
+        <h1>Logged in as {localStorage.getItem('user')}</h1>
         <form onSubmit={this.handleOnSubmit}>
           <p>Student Name</p>
           <input type='text' id='name'/>

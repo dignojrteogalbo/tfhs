@@ -23,7 +23,7 @@ class LogIn extends Component {
       .onAuthStateChanged(user => {
         if (user) {
           this.setState({
-            user: user
+            user: user.uid
           });
           localStorage.setItem('user', user.uid);
         } else {
@@ -40,20 +40,21 @@ class LogIn extends Component {
     Firebase.auth().signInWithPopup(provider);
   }
 
-  render () {
-    if (this.state.user !== null) {
-      return (
-        <Router>
-          <Redirect from='/login' to='/admin'/>
-        </Router>
-      );
-    }
+  LogOut = (event) => {
+    event.preventDefault();
+    Firebase.auth().signOut();
+  }
 
+  render () {
     return (
       <div className='Form'>
-        <h1>LogIn Page</h1>
+        <h1>Log-In Page</h1>
+        <h1>Logged in as {this.state.user}</h1>
         <form onSubmit={this.handleOnSubmit}>
           <input type='submit' value='Log-in using your Google Account'/>
+        </form>
+        <form onSubmit={this.LogOut}>
+          <input type='submit' value='Log Out'/>
         </form>
       </div>
     );
