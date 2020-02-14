@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink } from 'react-router-dom';
 import './App.css';
 
 import Firebase, { provider } from './config';
@@ -11,6 +11,7 @@ class LogIn extends Component {
       user: null,
     }
     this.authListener = this.authListener.bind(this);
+    this.currentUser = Firebase.auth().currentUser;
   }
 
   componentDidMount() {
@@ -22,15 +23,15 @@ class LogIn extends Component {
       .auth()
       .onAuthStateChanged(user => {
         if (user) {
+          this.currentUser = user;
           this.setState({
-            user: user.uid
+            user: user
           });
-          localStorage.setItem('user', user.uid);
         } else {
+          this.currentUser = null;
           this.setState({
-            user: null,
+            user: null
           });
-          localStorage.removeItem('user');
         }
       });
   }
@@ -46,18 +47,33 @@ class LogIn extends Component {
   }
 
   render () {
-    return (
-      <div className='Form'>
-        <h1>Log-In Page</h1>
-        <h1>Logged in as {this.state.user}</h1>
-        <form onSubmit={this.handleOnSubmit}>
-          <input type='submit' value='Log-in using your Google Account'/>
-        </form>
-        <form onSubmit={this.LogOut}>
-          <input type='submit' value='Log Out'/>
-        </form>
-      </div>
-    );
+    if (this.currentUser != null) {
+      return (
+        <div className='Form'>
+          <h1>Log-In Page</h1>
+          <h1>Logged in as {this.currentUser.displayName}</h1>
+          <form>
+            <NavLink to='/admin'><input type='submit' value='Admin Page'/></NavLink>
+          </form>
+          <form onSubmit={this.LogOut}>
+            <input type='submit' value='Log Out'/>
+          </form>
+        </div>
+      );
+    } else {
+      return (
+        <div className='Form'>
+          <h1>Log-In Page</h1>
+          <h1>Not Logged In.</h1>
+          <form onSubmit={this.handleOnSubmit}>
+            <input type='submit' value='Log-in using your Google Account'/>
+          </form>
+          <form onSubmit={this.LogOut}>
+            <input type='submit' value='Log Out'/>
+          </form>
+        </div>
+      );
+    }
   }
 }
 

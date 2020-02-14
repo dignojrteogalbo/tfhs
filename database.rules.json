@@ -2,6 +2,11 @@
   "rules": {
     ".read": true,
     ".write": true,
-    ".indexOn": "idNumber"
+    "admins": {
+      ".indexOn": "uid"
+    },
+    "students": {
+      ".indexOn": "idNumber"
+    },
   }
 }
