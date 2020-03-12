@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import './App.css';
 
 import Firebase from './config';
@@ -58,7 +57,7 @@ class Admin extends Component {
         .once('value', snap => {
           if (!snap.exists()) {
             dbRef.push({
-              checkedIn: new Date(),
+              checkedIn: false,
               name: this.state.name,
               idNumber: this.state.idNumber
             });

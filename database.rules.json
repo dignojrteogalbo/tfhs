@@ -1,12 +1,14 @@
 {
   "rules": {
-    ".read": true,
-    ".write": true,
     "admins": {
+      ".read" : "root.child('admins').child(auth.uid).val() == true",
+    	".write": "root.child('admins').child(auth.uid).val() == true",
       ".indexOn": "uid"
     },
     "students": {
+      ".read": true,
+    	".write": true,
       ".indexOn": "idNumber"
-    },
+    }
   }
 }
